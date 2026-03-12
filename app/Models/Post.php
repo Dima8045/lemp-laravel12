@@ -13,7 +13,7 @@ class Post extends Model
     protected $fillable = [
         'title',
         'slug',
-        'expert',
+        'excerpt',
         'body',
         'is_published',
         'published_at',

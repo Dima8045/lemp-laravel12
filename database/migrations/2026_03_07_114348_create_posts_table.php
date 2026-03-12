@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('expert')->nullable();
+            $table->text('excerpt')->nullable();
             $table->longText('body');
             $table->boolean('is_published')->default(false);
             $table->timestamp('published_at')->nullable();  

@@ -25,7 +25,7 @@ class PostFactory extends Factory
         return [
             'title' => $title,
             'slug' => $slug,
-            'expert' => fake()->paragraph(mt_rand(2, 5)),
+            'excerpt' => fake()->paragraph(mt_rand(2, 5)),
             'body' => collect(fake()->paragraphs(mt_rand(3, 7)))->implode("\n\n"),
             'is_published' => fake()->boolean(70),
             'published_at' => fake()->dateTimeBetween('-30 days', 'now'),

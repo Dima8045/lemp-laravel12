@@ -13,7 +13,7 @@
             <div>
                 <h2>{{ $post->title }}</h2>
                 <p>{{ $post->published_at }}</p>
-                <p>{{ Str::limit($post->expert, 150) }}</p>
+                <p>{{ Str::limit($post->excerpt, 150) }}</p>
                 <a href="{{ route('posts.show', $post->slug) }}">Читати далі</a>
             </div>
         @endforeach
