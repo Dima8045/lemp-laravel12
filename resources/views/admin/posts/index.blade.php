@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex justify-between items-center mb-8">
     <h1 class="text-3xl font-bold">Керування постами</h1>
-    <a href="{{ route('posts.create') }}" class="bg-white text-black px-4 py-2 rounded-lg text-sm font-bold hover:bg-zinc-200">
+    <a href="{{ route('admin.posts.create') }}" class="bg-white text-black px-4 py-2 rounded-lg text-sm font-bold hover:bg-zinc-200">
         + Додати
     </a>
 </div>
@@ -49,9 +49,9 @@
                     </td>
                     <td class="p-4 text-right">
                         <div class="flex justify-end gap-3">
-                            <a href="{{ route('posts.show', $post->slug ?? $post->id) }}" class="text-zinc-400 hover:text-white">👁</a>
-                            <a href="{{ route('posts.edit', $post) }}" class="text-zinc-400 hover:text-blue-400">✎</a>
-                            <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Видалити?')">
+                            <a href="{{ route('admin.posts.show', $post->slug ?? $post->id) }}" class="text-zinc-400 hover:text-white">👁</a>
+                            <a href="{{ route('admin.posts.edit', $post) }}" class="text-zinc-400 hover:text-blue-400">✎</a>
+                            <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Видалити?')">
                                 @csrf @method('DELETE')
                                 <button class="text-zinc-500 hover:text-red-500">✕</button>
                             </form>

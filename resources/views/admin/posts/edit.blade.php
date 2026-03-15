@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="text-3xl font-bold mb-8">Редагувати пост</h1>
 
-    <form action="{{ route('posts.update', $post) }}" method="PATCH" class="space-y-6">
+    <form action="{{ route('admin.posts.update', $post) }}" method="PATCH" class="space-y-6">
         @csrf
         <div>
             <label class="block text-sm font-medium mb-2 text-zinc-400">Заголовок</label>
@@ -35,7 +35,7 @@
 
         <div class="flex gap-4">
             <button type="submit" class="bg-white text-black px-6 py-2 rounded-lg font-bold hover:bg-zinc-200">Зберегти</button>
-            <a href="{{ route('posts.index') }}" class="px-6 py-2 text-zinc-400 hover:text-white">Скасувати</a>
+            <a href="{{ route('admin.posts.index') }}" class="px-6 py-2 text-zinc-400 hover:text-white">Скасувати</a>
         </div>
     </form>
 @endsection

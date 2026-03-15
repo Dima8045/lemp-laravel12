@@ -13,8 +13,7 @@
 <body class="antialiased font-sans">
     <nav class="border-b border-zinc-800 p-6 mb-8">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <a href="{{ route('admin.posts.index') }}" class="text-2xl font-bold tracking-tighter">БЛОГ</a>
-            <a href="{{ route('admin.posts.create') }}" class="bg-zinc-100 text-zinc-900 px-4 py-2 rounded-lg font-medium hover:bg-white transition">Створити пост</a>
+            <a href="{{ route('blog.index') }}" class="text-2xl font-bold tracking-tighter">БЛОГ</a>
         </div>
     </nav>
 

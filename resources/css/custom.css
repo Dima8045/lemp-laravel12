@@ -1,0 +1,22 @@
+body { background-color: #09090b; color: #e4e4e7; font-size: 1.1rem; }
+.form-input { background-color: #18181b; border: 1px solid #3f3f46; border-radius: 0.5rem; padding: 0.5rem 1rem; width: 100%; color: white; }
+.preserve-lines { white-space: pre-line; }
+
+.pagination-dark [aria-current="page"] span {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
+    font-weight: bold !important;
+}
+
+.pagination-dark a:hover {
+    background-color: #27272a !important;
+    color: #ffffff !important;
+    border-color: #52525b !important;
+}
+
+.pagination-dark a:focus, 
+.pagination-dark span:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
