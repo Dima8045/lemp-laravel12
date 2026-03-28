@@ -24,7 +24,12 @@
                     </a>
                 </div>
             </div>
-
+            @if (@isset($post) && $post->image_url) 
+                <div>
+                    <img id="image-preview" src="{{ $post->image_url }}" alt="Попередній перегляд зображення" class="mb-2 w-full max-h-64 object-cover rounded">
+                </div>
+            @endif
+            
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-white">
                 {{ $post->title }}
             </h1>

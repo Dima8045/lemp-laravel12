@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Illuminate\Container\Attributes\Storage;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage as FacadesStorage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -42,17 +44,23 @@ class PostController extends Controller
             'is_published' => 'nullable',
             'published_at' => 'nullable',
             'user_id' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('posts', 'public');
+        }
 
         $slugBase = Str::slug($data['title']);
         $slug = $slugBase . '-' . rand(1, 999999);
         $data['slug'] = $slug;
 
-        $data['is_published'] = $data['is_published'] === 'on';
+        $data['is_published'] = $request->has('is_published') == 'on';
+        $data['published_at'] = $request->has('is_published') ? now() : null;
 
         Post::create($data);
 
-        return redirect()->route('posts.index')->with('success', 'Пост успішно створено');
+        return redirect()->route('admin.posts.index')->with('success', 'Пост успішно створено');
     }
 
     /**
@@ -73,7 +81,7 @@ class PostController extends Controller
         return view('admin.posts.edit', [
             'post' => $post,
         ]);
-    }
+    }  
 
     /**
      * Update the specified resource in storage.
@@ -88,7 +96,26 @@ class PostController extends Controller
             'is_published' => 'nullable',
             'published_at' => 'nullable',
             'user_id' => 'nullable',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'delete_image' => ['sometimes', 'boolean'],
         ]);
+
+        if ($request->input('delete_image') == '1') {
+            if ($post->image) {
+                FacadesStorage::disk('public')->delete($post->image);
+            }
+            $data['image'] = null;
+        }
+        
+        if ($request->hasFile('image')) {
+            if ($post->image) {
+                FacadesStorage::disk('public')->delete($post->image);
+            }
+            $data['image'] = $request->file('image')->store('posts', 'public');
+        }
+        
+        $data['is_published'] = $request->has('is_published') == 'on';
+        $data['published_at'] = $request->has('is_published') ? now() : null;
 
         $post->update($data);
         

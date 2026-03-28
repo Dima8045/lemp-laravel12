@@ -3,8 +3,30 @@
 @section('content')
     <h1 class="text-3xl font-bold mb-8">Редагувати пост</h1>
 
-    <form action="{{ route('admin.posts.update', $post) }}" method="PATCH" class="space-y-6">
+    <form action="{{ route('admin.posts.update', $post) }}" class="space-y-6" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PATCH')
+        <div>
+            <label class="block text-sm font-medium mb-2 text-zinc-400">Зображення</label>
+            <input type="file" name="image" class="form-input" accept="image/*">
+            @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+        @if (@isset($post) && $post->image_url) 
+            <div>
+                <img id="image-preview" src="{{ $post->image_url }}" alt="Попередній перегляд зображення" class="mb-2 w-full max-h-64 object-cover rounded">
+            </div>
+
+            <div class="flex items-center gap-3 py-2">
+                <input type="checkbox" 
+                    name="delete_image" 
+                    value="1"
+                    id="delete_image" 
+                    class="w-5 h-5 rounded border-zinc-700 bg-zinc-900 text-white focus:ring-0 focus:ring-offset-0">
+                <label for="delete_image" class="text-sm font-medium text-zinc-400 cursor-pointer select-none">
+                    Видалити поточне зображення
+                </label>
+            </div>
+        @endif
         <div>
             <label class="block text-sm font-medium mb-2 text-zinc-400">Заголовок</label>
             <input type="text" name="title" class="form-input" value="{{ $post->title }}" required>

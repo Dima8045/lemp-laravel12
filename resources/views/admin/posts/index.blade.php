@@ -3,9 +3,6 @@
 @section('content')
 <div class="flex justify-between items-center mb-8">
     <h1 class="text-3xl font-bold">Керування постами</h1>
-    <a href="{{ route('admin.posts.create') }}" class="bg-white text-black px-4 py-2 rounded-lg text-sm font-bold hover:bg-zinc-200">
-        + Додати
-    </a>
 </div>
 
 <div class="overflow-x-auto rounded-xl border border-zinc-800">

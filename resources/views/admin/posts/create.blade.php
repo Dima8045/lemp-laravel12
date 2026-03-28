@@ -3,8 +3,18 @@
 @section('content')
     <h1 class="text-3xl font-bold mb-8">Новий пост</h1>
 
-    <form action="{{ route('admin.posts.store') }}" method="POST" class="space-y-6">
+    <form action="{{ route('admin.posts.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
         @csrf
+        <div>
+            <label class="block text-sm font-medium mb-2 text-zinc-400">Зображення</label>
+            <input type="file" name="image" class="form-input" accept="image/*">
+            @error('image') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+        </div>
+
+        <div>
+            <img id="image-preview" src="#" alt="Попередній перегляд зображення" class="mb-2 hidden w-full max-h-64 object-cover rounded">
+        </div>
+
         <div>
             <label class="block text-sm font-medium mb-2 text-zinc-400">Заголовок</label>
             <input type="text" name="title" class="form-input" value="{{ old('title') }}" required>
