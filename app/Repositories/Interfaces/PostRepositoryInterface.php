@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Repositories\Interfaces;
+
+use App\Models\Post;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
+interface PostRepositoryInterface
+{
+    public function getPublishedPaginated(?string $search, int $perPage): LengthAwarePaginator;
+
+    public function getPublishedBySlug(string $slug): ?Post;
+}
