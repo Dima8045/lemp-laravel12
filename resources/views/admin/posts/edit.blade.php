@@ -34,8 +34,9 @@
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-2 text-zinc-400">Короткий опис (Excerpt)</label>
+            <label class="block text-sm font-medium mb-2 text-zinc-400">Короткий опис</label>
             <textarea name="excerpt" rows="2" class="form-input">{{ $post->excerpt }}</textarea>
+            @error('excerpt') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>
@@ -51,7 +52,7 @@
                 class="w-5 h-5 rounded border-zinc-700 bg-zinc-900 text-white focus:ring-0 focus:ring-offset-0"
                 {{ old('is_published', $post->is_published) ? 'checked' : '' }}>
             <label for="is_published" class="text-sm font-medium text-zinc-400 cursor-pointer select-none">
-                Статус публікації (активний)
+                Статус публікації
             </label>
         </div>
 

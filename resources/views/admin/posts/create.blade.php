@@ -22,8 +22,9 @@
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-2 text-zinc-400">Короткий опис (Excerpt)</label>
+            <label class="block text-sm font-medium mb-2 text-zinc-400">Короткий опис</label>
             <textarea name="excerpt" rows="2" class="form-input">{{ old('excerpt') }}</textarea>
+            @error('excerpt') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
         </div>
 
         <div>

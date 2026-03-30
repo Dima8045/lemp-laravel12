@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Post\StoreRequest;
+use App\Http\Requests\Admin\Post\UpdateRequest;
 use App\Models\Post;
-use Illuminate\Container\Attributes\Storage;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage as FacadesStorage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -34,18 +34,9 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(StoreRequest $request): RedirectResponse
     {
-        $data = $request->validate([
-            'title' => 'required|string|min:3|max:255',
-            'slug' => 'nullable',
-            'excerpt' => 'required|string|min:10|max:255',
-            'body' => 'required|string|min:10',
-            'is_published' => 'nullable',
-            'published_at' => 'nullable',
-            'user_id' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('posts', 'public');
@@ -86,30 +77,20 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post): RedirectResponse
+    public function update(UpdateRequest $request, Post $post): RedirectResponse
     {
-        $data = $request->validate([
-            'title' => 'required|string|min:3|max:255',
-            'slug' => 'nullable',
-            'excerpt' => 'required|string|min:10|max:255',
-            'body' => 'required|string|min:10',
-            'is_published' => 'nullable',
-            'published_at' => 'nullable',
-            'user_id' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'delete_image' => ['sometimes', 'boolean'],
-        ]);
+        $data = $request->validated();
 
         if ($request->input('delete_image') == '1') {
             if ($post->image) {
-                FacadesStorage::disk('public')->delete($post->image);
+                Storage::disk('public')->delete($post->image);
             }
             $data['image'] = null;
         }
         
         if ($request->hasFile('image')) {
             if ($post->image) {
-                FacadesStorage::disk('public')->delete($post->image);
+                Storage::disk('public')->delete($post->image);
             }
             $data['image'] = $request->file('image')->store('posts', 'public');
         }
