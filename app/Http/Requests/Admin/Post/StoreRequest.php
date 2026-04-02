@@ -26,7 +26,7 @@ class StoreRequest extends FormRequest
             'slug' => 'nullable',
             'excerpt' => 'required|string|min:10|max:255',
             'body' => 'required|string|min:10',
-            'is_published' => 'nullable',
+            'is_published' => 'sometimes|boolean',
             'published_at' => 'nullable',
             'user_id' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
@@ -51,5 +51,12 @@ class StoreRequest extends FormRequest
             'image.mimes' => 'Зображення повинно бути у форматі jpeg, png, jpg або webp.',
             'image.max' => 'Размір зображення не повинен перевищувати 2048 кілобайт.',
         ];
+    }
+
+    public function prepareForValidation(): void
+    {
+        $this->merge([
+            'is_published' => $this->boolean('is_published'),
+        ]);
     }
 }

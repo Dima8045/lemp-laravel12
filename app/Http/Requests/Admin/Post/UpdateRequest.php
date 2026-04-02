@@ -26,7 +26,7 @@ class UpdateRequest extends FormRequest
             'slug' => 'nullable',
             'excerpt' => 'required|string|min:10|max:255',
             'body' => 'required|string|min:10',
-            'is_published' => 'nullable',
+            'is_published' => 'sometimes|boolean',
             'published_at' => 'nullable',
             'user_id' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
@@ -53,4 +53,12 @@ class UpdateRequest extends FormRequest
             'image.max' => 'Розмір зображення не повинен перевищувати 2048 кілобайт.',
         ];
     }
+
+        public function prepareForValidation(): void
+        {
+            $this->merge([
+                'is_published' => $this->boolean('is_published'),
+                'delete_image' => $this->boolean('delete_image'),
+            ]);
+        }
 }

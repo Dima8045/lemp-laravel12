@@ -61,4 +61,14 @@
             <a href="{{ route('admin.posts.index') }}" class="px-6 py-2 text-zinc-400 hover:text-white">Скасувати</a>
         </div>
     </form>
+    <footer class="mt-16 pt-8 border-t border-zinc-800 flex justify-between items-center">
+    <span class="text-zinc-600 text-xs uppercase tracking-widest">Кінець запису</span>
+    
+    <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Ви впевнені?')">
+        @csrf @method('DELETE')
+        <button class="text-xs text-red-900 hover:text-red-500 uppercase tracking-widest transition">
+            Видалити цей пост
+        </button>
+    </form>
+</footer>
 @endsection

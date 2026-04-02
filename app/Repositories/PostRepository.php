@@ -33,4 +33,9 @@ class PostRepository implements PostRepositoryInterface
             ->where('is_published', true)
             ->firstOrFail();
     }
+
+    public function getPaginated(int $perPage): LengthAwarePaginator
+    {
+        return Post::latest()->paginate($perPage);
+    }
 }

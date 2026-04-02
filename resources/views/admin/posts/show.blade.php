@@ -49,16 +49,5 @@
         <div class="prose prose-invert max-w-none text-zinc-300 leading-loose text-lg preserve-lines">
             {{ $post->body }}
         </div>
-
-        <footer class="mt-16 pt-8 border-t border-zinc-800 flex justify-between items-center">
-            <span class="text-zinc-600 text-xs uppercase tracking-widest">Кінець запису</span>
-            
-            <form action="{{ route('admin.posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Ви впевнені?')">
-                @csrf @method('DELETE')
-                <button class="text-xs text-red-900 hover:text-red-500 uppercase tracking-widest transition">
-                    Видалити цей пост
-                </button>
-            </form>
-        </footer>
     </article>
 @endsection

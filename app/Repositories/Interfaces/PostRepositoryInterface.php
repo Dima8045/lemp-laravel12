@@ -10,4 +10,6 @@ interface PostRepositoryInterface
     public function getPublishedPaginated(?string $search, int $perPage): LengthAwarePaginator;
 
     public function getPublishedBySlug(string $slug): ?Post;
+
+    public function getPaginated(int $perPage): LengthAwarePaginator;
 }
