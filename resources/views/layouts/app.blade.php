@@ -14,6 +14,21 @@
     <nav class="border-b border-zinc-800 p-6 mb-8">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
             <a href="{{ route('blog.index') }}" class="text-2xl font-bold tracking-tighter">БЛОГ</a>
+
+            <div class="flex items-center gap-3">
+                @auth
+                    <a href="{{ route('admin.posts.create') }}" class="bg-zinc-100 text-zinc-900 px-4 py-2 rounded-lg font-medium hover:bg-white transition">Створити пост</a>
+                    <span class="text-zinc-300">{{ auth()->user()->name }}</span>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-500 transition">Вийти</button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="text-zinc-100 px-4 py-2 rounded-lg font-medium hover:text-white transition">Увійти</a>
+                    <a href="{{ route('register') }}" class="bg-zinc-100 text-zinc-900 px-4 py-2 rounded-lg font-medium hover:bg-white transition">Реєстрація</a>
+                @endauth
+            </div>
+        </div>
         </div>
     </nav>
 

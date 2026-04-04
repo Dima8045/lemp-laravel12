@@ -7,10 +7,8 @@ use App\Http\Requests\Admin\Post\StoreRequest;
 use App\Http\Requests\Admin\Post\UpdateRequest;
 use App\Models\Post;
 use App\Repositories\Interfaces\PostRepositoryInterface;
-use App\Service\PostService;
+use App\Services\PostService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class PostController extends Controller
