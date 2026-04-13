@@ -70,7 +70,7 @@
             <div>
                 <button
                     type="submit"
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    class="w-full bg-white hover:bg-zinc-100 text-zinc-900 font-medium py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-zinc-400"
                 >
                     Зареєструватися
                 </button>

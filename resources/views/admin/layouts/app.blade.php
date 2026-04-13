@@ -24,7 +24,7 @@
                         <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-500 transition">Вийти</button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="text-zinc-100 px-4 py-2 rounded-lg font-medium hover:text-white transition">Увійти</a>
+                    <a href="{{ route('login') }}" class="bg-zinc-100 text-zinc-900 px-4 py-2 rounded-lg font-medium hover:bg-white transition">Увійти</a>
                     <a href="{{ route('register') }}" class="bg-zinc-100 text-zinc-900 px-4 py-2 rounded-lg font-medium hover:bg-white transition">Реєстрація</a>
                 @endauth
             </div>

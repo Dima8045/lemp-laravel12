@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\ForgotPasswordRequest;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Services\Interfaces\AuthServiceInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
 
 class AuthController extends Controller
@@ -59,5 +63,54 @@ class AuthController extends Controller
         $this->auth->logout();
 
         return redirect()->route('login')->with('status', 'Ви вийшли з системи!');
+    }
+
+    public function showForgotPassword(): View
+    {
+        return view('auth.forgot-password');
+    }
+
+    public function sendResetLinkEmail(ForgotPasswordRequest $request): RedirectResponse
+    {
+        $request->validated();
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        if ($status !== Password::RESET_LINK_SENT) {
+            return back()->withErrors(['email' => __($status)]);
+        }   
+
+        return back()->with('status', 'Посилання для скидання пароля було надіслано на вашу електронну адресу.');
+    }
+
+    public function showResetPassword(string $token): View
+    {
+        return view('auth.reset-password', [
+            'token' => $token,
+            'email' => request()->query('email'),
+        ]);
+    }
+
+    public function resetPassword(ResetPasswordRequest $request): RedirectResponse
+    {
+        $request->validated();
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) {
+                $user->password = $password;
+                $user->save();
+
+                Auth::login($user);
+            }
+        );
+
+        if ($status !== Password::PASSWORD_RESET) {
+            return back()->withErrors(['email' => [__($status)]]);
+        }
+
+        return redirect()->route('login')->with('status', 'Ваш пароль був успішно скинутий!');
     }
 }
