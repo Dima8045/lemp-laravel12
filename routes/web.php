@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => redirect()->route('blog.index'))->name('index');
@@ -16,8 +17,8 @@ Route::prefix('admin')->as('admin.')->middleware(['auth', 'role:admin'])->group(
 });
 
 Route::prefix('blog')->as('blog.')->group(function () {
-    Route::get('/', [\App\Http\Controllers\PostController::class, 'index'])->name('index');
-    Route::get('/{post:slug}', [\App\Http\Controllers\PostController::class, 'show'])->name('show');
+    Route::get('/', [PostController::class, 'index'])->name('index');
+    Route::get('/{post:slug}', [PostController::class, 'show'])->name('show');
 });
 
 Route::middleware('guest')->group(function () {
@@ -35,4 +36,11 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/email/verify', [AuthController::class, 'showEmailVerificationNotice'])
+        ->name('verification.notice');
+    Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verifyEmail'])
+        ->name('verification.verify')->middleware(['signed']);
+    Route::post('/email/resend', [AuthController::class, 'resendVerificationEmail'])
+        ->name('verification.resend');
 });

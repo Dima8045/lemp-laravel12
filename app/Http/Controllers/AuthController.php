@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Services\Interfaces\AuthServiceInterface;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,9 +35,22 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('verification.notice');
     }
 
+    public function showEmailVerificationNotice(): View
+    {
+        return view('auth.verify-email');
+    }   
+
+    public function verifyEmail(EmailVerificationRequest $request, string $id, string $hash): RedirectResponse
+    {
+        $request->fulfill();
+    
+        return redirect('/')->with('status', 'Ваш email був успішно підтверджений!');
+    }
+
+        
 
     public function showLogin(): View
     {
